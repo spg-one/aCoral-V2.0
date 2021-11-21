@@ -1,0 +1,47 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "gnu-debugger",
+      "request": "launch",
+      "name": "GNU debugger",
+      "env": {
+        "HOME": "C:/Users/SPGGO"
+      },
+      //"args": ["${env:USERPROFILE}"],
+      "program": "${workspaceFolder}/ch1.elf",
+      "toolchain": "${config:arm-none-eabi.bin}",
+      "client": "C:/Users/SPGGO/.vscode/extensions/metalcode-eu.windows-arm-none-eabi-0.1.6/bin/arm-none-eabi-gdb.exe",
+      "server": "JLinkGDBServer",
+      "windows": {
+        "server": "C:/Program Files (x86)/SEGGER/JLink_V632g/JLinkGDBServerCL.exe",
+      },
+      "serverArgs": [
+        "-device",
+        "S3C2440A",
+        "-endian",
+        "little",
+        "-if",
+        "JTAG",
+        "-speed",
+        "4000",
+        "-noir",
+        "-LocalhostOnly"
+      ],
+      "serverHost": "127.0.0.1",
+      "serverPort": 2331,
+      "customVariables": [
+        "port0",
+        "port1",
+        "port2",
+      ],
+      "autoRun": false,
+      "debugOutput": true,
+      "preLaunchTask": "build firmware",
+      // "env":"$Env:HOME = $Env:USERPROFILE",
+    }
+  ]
+}
