@@ -1,6 +1,6 @@
-#include"ch1.h"
+#include "ch1.h"
 
-int main(){
+int acoral_start(){
 	rCLKDIVN = 0X5;	
 	rMPLLCON = (0X7f<<12) | (0X2<<4) | (0X1);
 	rGPGCON = 0;			//检测按键状态
@@ -19,5 +19,6 @@ int main(){
 		}
 	rGPBCON = 0x400;			
 	rGPBDAT = 0x1C0; 			//点亮LED
+	while(1);
 }
 
