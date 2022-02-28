@@ -16,9 +16,11 @@ CORE_FILES=hal/src/start.o acoral.o
 
 export TOPDIR
 
+O_TARGET:=hal/src/start.o hal/src/ch1.o hal/src/hal_int_s.o hal/src/hal_nand.o
+
 acoral:acoral.bin
 
-acoral.bin:hal/src/start.o hal/src/ch1.o hal/src/hal_int_s.o hal/src/hal_nand.o
+acoral.bin:$(O_TARGET)
 	$(LD) $(LINKFLAGS)  -g $^ -o acoral.elf
 	$(OBJCOPY) -O binary -S acoral.elf acoral.bin
 	$(OBJDUMP) -S acoral.elf > acoral.d 
@@ -32,10 +34,11 @@ acoral.bin:hal/src/start.o hal/src/ch1.o hal/src/hal_int_s.o hal/src/hal_nand.o
 	$(GCC) $(ACORAL_INCLUDE_DIR) -g -c -o $@ $<	
 
 clean:
-	del acoral.bin acoral.elf *.o /F/Q 
+	del acoral.bin acoral.elf *.o /F/Q/S 
+#del hal/src/start.o /F/Q 
 
 .PHONY: test
 
 test:
-	@echo $(TOPDIR)
+	@echo $(O_TARGET)
 

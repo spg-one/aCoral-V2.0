@@ -27,7 +27,8 @@
         "-if",
         "JTAG",
         "-speed",
-        "4000"
+        "4000",
+        "-noir"
       ],
       "serverHost": "localhost",
       "serverPort": 2331,

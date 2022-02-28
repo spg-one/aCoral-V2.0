@@ -1,29 +1,31 @@
 ENTRY(__ENTRY)
 MEMORY
 {  
-	    ram (wx)  : org = 0x9,   len = 64M
+	    sdram (wx)  : org = 0x30000000,   len = 64M
 }
 SECTIONS
 {
-	.text : 
+	.text 0x30000000 : AT(0x0)
 	{
+		text_load_addr = LOADADDR(.text);
 		text_start = .;
 	       	* (.text)
      		* (.init.text)
 			* (.rodata*)
-	}>ram 
+	}>sdram 
 	
 	.data ALIGN(4):
 	{  
 		* (.data)
-	} >ram
+	} >sdram
 	
 	.bss ALIGN(4): 
 	{ 
-		bss_start = .;    
+		bss_start = .;  
+		bss_load_addr = bss_start - 0x30000000;  
 		* (.bss)
      		. = ALIGN(4) ;
-	} >ram
+	} >sdram
 	bss_end = .;    
 
 	stack_base = 0x33ffff00;

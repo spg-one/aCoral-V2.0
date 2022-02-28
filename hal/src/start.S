@@ -1,6 +1,8 @@
 #include "hal_2440_cfg.h"
 #include "autocfg.h"
+	.extern text_load_addr
 	.extern text_start
+	.extern bss_load_addr
 	.extern bss_start
 	.extern bss_end
 	.extern HAL_INTR_ENTRY
@@ -50,8 +52,12 @@ HandlePabort:
 
 
 .align 4
+_text_load_addr:
+    .long   text_load_addr
 _text_start:
     .long   text_start
+_bss_load_addr:
+	.long   bss_load_addr
 _bss_start:
 	.long   bss_start
 _bss_end:
@@ -103,7 +109,7 @@ ResetHandler:
 	bl      InitStacks
 
 	adr  r0,__ENTRY
-	ldr  r1,_text_start
+	ldr  r1,_text_load_addr
 	cmp  r0,r1
 	blne copy_self  
 
@@ -156,6 +162,7 @@ copy_self:
 
 
 copy_from_rom:
+	mov   r0,   #0
 	ldr   r1,   _text_start
 	ldr   r3,   _bss_start
 	ldr   r2,   [r0],#4
@@ -239,11 +246,11 @@ InitStacks:
 	bic	r0,r0,#MODE_MASK
 	orr	r1,r0,#UND_MODE|NOINT
 	msr	cpsr_cxsf,r1		@UndefMode
-	ldr	sp,=UDF_stack		@ UndefStack=0x33FF_5C00
+	ldr	sp,=UDF_stack		@ UndefStack=0x33FF_FC00
 
 	orr	r1,r0,#ABT_MODE|NOINT
 	msr	cpsr_cxsf,r1		@AbortMode
-	ldr	sp,=ABT_stack		@ AbortStack=0x33FF_6000
+	ldr	sp,=ABT_stack		@ AbortStack=0x33FF_FD00
 
 	orr	r1,r0,#IRQ_MODE|NOINT
 	msr	cpsr_cxsf,r1		@IRQMode
