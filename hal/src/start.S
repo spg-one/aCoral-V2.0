@@ -110,7 +110,7 @@ ResetHandler:
 	bl      InitStacks
 
 	adr  r0,__ENTRY
-	ldr  r1,_text_load_addr
+	ldr  r1,_text_load_addr		@//TODO判定条件？
 	cmp  r0,r1
 	blne copy_self  
 
@@ -176,7 +176,7 @@ start_copy:
 copy_from_nand:
 	stmfd   sp!, {lr}
 	bl      nand_init
-	ldr     r0,  _text_start
+	ldr     r0,  =0x30000000
 	mov     r1,  #0
 	ldr     r3,  _bss_start
         sub     r2,  r3, r0
@@ -206,7 +206,7 @@ bad_nand_read:
 ok_nand_read:    	
 
 	mov	r0, #0
-	ldr	r1, _text_start
+	ldr	r1, =0x30000000
 	mov	r2, #512	
 go_next:
 	ldr	r3, [r0], #4

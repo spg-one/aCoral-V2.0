@@ -152,7 +152,7 @@ ResetHandler:
 
 	adr  r0,__ENTRY
   bc:	e24f00c4 	sub	r0, pc, #196	; 0xc4
-	ldr  r1,_text_load_addr
+	ldr  r1,_text_load_addr		@//TODO判定条件？
   c0:	e51f1078 	ldr	r1, [pc, #-120]	; 50 <_text_load_addr>
 	cmp  r0,r1
   c4:	e1500001 	cmp	r0, r1
@@ -234,8 +234,8 @@ copy_from_nand:
  12c:	e92d4000 	stmfd	sp!, {lr}
 	bl      nand_init
  130:	eb00009d 	bl	3ac <nand_init>
-	ldr     r0,  _text_start
- 134:	e51f00e8 	ldr	r0, [pc, #-232]	; 54 <_text_start>
+	ldr     r0,  =0x30000000
+ 134:	e3a00203 	mov	r0, #805306368	; 0x30000000
 	mov     r1,  #0
  138:	e3a01000 	mov	r1, #0
 	ldr     r3,  _bss_start
@@ -284,8 +284,8 @@ ok_nand_read:
 
 	mov	r0, #0
  170:	e3a00000 	mov	r0, #0
-	ldr	r1, _text_start
- 174:	e51f1128 	ldr	r1, [pc, #-296]	; 54 <_text_start>
+	ldr	r1, =0x30000000
+ 174:	e3a01203 	mov	r1, #805306368	; 0x30000000
 	mov	r2, #512	
  178:	e3a02c02 	mov	r2, #512	; 0x200
 
