@@ -18,7 +18,7 @@ export TOPDIR
 
 O_TARGET:=hal/src/start.o hal/src/ch1.o hal/src/hal_int_s.o hal/src/hal_nand.o
 
-acoral:acoral.bin
+acoral: clean acoral.bin
 
 acoral.bin:$(O_TARGET)
 	$(LD) $(LINKFLAGS)  -g $^ -o acoral.elf
@@ -40,5 +40,5 @@ clean:
 .PHONY: test
 
 test:
-	@echo $(O_TARGET)
+	$(GCC) -v
 

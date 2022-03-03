@@ -10,6 +10,7 @@
 
 	.global __ENTRY
 	.global HandleIRQ
+
 __ENTRY:
 	b	ResetHandler
 	b	HandleUndef		@handler for Undefined mode
@@ -160,15 +161,16 @@ copy_self:
 	b       copy_from_nand 
 
 
-
+	
 copy_from_rom:
 	mov   r0,   #0
-	ldr   r1,   _text_start
+	ldr   r1,   =0x30000000
 	ldr   r3,   _bss_start
+start_copy:
 	ldr   r2,   [r0],#4
 	str   r2,   [r1],#4
 	cmp   r1,   r3
-	blt   copy_from_rom	
+	blt   start_copy	
 	mov   pc,  lr
 
 copy_from_nand:

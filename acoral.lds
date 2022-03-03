@@ -5,7 +5,13 @@ MEMORY
 }
 SECTIONS
 {
-	.text 0x30000000 : AT(0x0)
+	.init 0x0:
+	{
+		hal/src/start.o(.text)
+		hal/src/hal_nand.o(.text)
+	}
+	init_end= .;
+	.text 0x30000000+init_end : AT(init_end)
 	{
 		text_load_addr = LOADADDR(.text);
 		text_start = .;
