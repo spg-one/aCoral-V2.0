@@ -1,7 +1,7 @@
 SHELL=cmd
 TOPDIR=$(shell echo %cd%)
 
-ACORAL_INCLUDE_DIR= -Ihal/include
+ACORAL_INCLUDE_DIR= -Iinclude
 
 
 LD              = arm-none-eabi-ld
@@ -16,7 +16,8 @@ CORE_FILES=hal/src/start.o acoral.o
 
 export TOPDIR
 
-O_TARGET:=hal/src/start.o hal/src/ch1.o hal/src/hal_int_s.o hal/src/hal_nand.o
+O_TARGET:=hal/src/start.o hal/src/ch1.o hal/src/hal_int_s.o hal/src/hal_nand.o \
+		  hal/src/core.o
 
 acoral: clean acoral.bin
 
@@ -37,7 +38,8 @@ clean:
 	del acoral.bin acoral.elf *.o /F/Q/S 
 #del hal/src/start.o /F/Q 
 
-.PHONY: test
+readHeader:
+	gcc read_header.c -o read_header.exe
 
 test:
 	$(GCC) -v

@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "segger_rtt.h": "c"
+        "segger_rtt.h": "c",
+        "thread.h": "c",
+        "hal_2440_cfg.h": "c"
     }
 }

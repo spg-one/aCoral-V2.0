@@ -1,4 +1,5 @@
 #include "hal_2440_cfg.h"
+#include "acoral.h"
 
 void nand_init(void);
 int nand_read(unsigned char *buf, unsigned long start_addr, int size);

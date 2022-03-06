@@ -114,6 +114,44 @@
           "isDefault": true,
         },
         "problemMatcher": "$gcc"
+      },
+      {
+        "label": "updateHeader",
+        "type": "shell",
+        "command": "./read_header.exe",
+        "options": {
+          "env": {
+            "INCLUDE": "${config:arm-none-eabi.include}",
+            "LIB": "${config:arm-none-eabi.lib}",
+            "LIBGCC": "${config:arm-none-eabi.libgcc}/thumb/v6-m/libgcc.a",
+          }
+        },
+        "osx": {
+          "options": {
+            "env": {
+              "PATH": "${config:arm-none-eabi.bin}:${env:PATH}",
+            }
+          },
+        },
+        "linux": {
+          "options": {
+            "env": {
+              "PATH": "${config:arm-none-eabi.bin}:${env:PATH}",
+            }
+          },
+        },
+        "windows": {
+          "options": {
+            "env": {
+              "PATH": "${config:arm-none-eabi.bin};${env:PATH}",
+            }
+          },
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": true,
+        },
+        "problemMatcher": "$gcc"
       }
     ]
   }
