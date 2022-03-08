@@ -16,8 +16,8 @@ CORE_FILES=hal/src/start.o acoral.o
 
 export TOPDIR
 
-O_TARGET:=hal/src/start.o hal/src/ch1.o hal/src/hal_int_s.o hal/src/hal_nand.o \
-		  hal/src/core.o
+O_TARGET:=hal/start.o hal/hal_int_s.o hal/hal_nand.o \
+		  kernel/core.o
 
 acoral: clean acoral.bin
 
@@ -42,5 +42,7 @@ readHeader:
 	gcc read_header.c -o read_header.exe
 
 test:
-	$(GCC) -v
-
+	gcc spg1.c -c -o spg1.o
+	gcc spg2.c -c -o spg2.o
+	ld spg1.o spg2.o -o spg.exe
+	
